@@ -4,7 +4,7 @@
 
 **Shared feedback experts · Task-specific gating · Articulated robotic fish**
 
-[Project website](https://Sunweiyuan01.github.io/MAMoE-Fish/) · [Quick start](#quick-start) · [Method](guide/METHOD.md) · [Training](guide/TRAINING.md)
+[Project website](https://FishMove-Tools.github.io/MAMoE-Fish/) · [Quick start](#quick-start) · [Method](guide/METHOD.md) · [Training](guide/TRAINING.md)
 
 ![MAMoE-Fish feedback policy and articulated platform](docs/assets/framework.png)
 
@@ -24,7 +24,7 @@ Training branches for escape and speed originate independently from the source t
 Python **3.12**. Run from the repository root. Use a virtual environment:
 
 ```bash
-git clone https://github.com/Sunweiyuan01/MAMoE-Fish.git
+git clone https://github.com/FishMove-Tools/MAMoE-Fish.git
 cd MAMoE-Fish
 python -m venv .venv
 ```
