@@ -1,0 +1,102 @@
+<mujoco model="DualJointFish_v2"><compiler angle="radian" meshdir="assets"/>
+<option timestep="0.0005" gravity="0 0 0" density="1000" viscosity="0.0013" integrator="implicitfast"/>
+<visual><global offwidth="1600" offheight="1000"/><quality shadowsize="2048"/><map znear=".005"/></visual>
+<asset>
+<mesh name="forebody" file="forebody.stl" inertia="shell"/>
+<mesh name="peduncle" file="peduncle.stl" inertia="shell"/>
+<mesh name="caudal" file="caudal.stl" inertia="shell"/>
+<texture name="grid" type="2d" builtin="checker" rgb1=".055 .15 .20" rgb2=".075 .20 .25" width="512" height="512"/>
+<material name="floor" texture="grid" texrepeat="30 30" reflectance=".1"/></asset>
+<worldbody><light pos="0 -1 4" diffuse=".9 .9 .9"/><light pos="-3 3 2" diffuse=".4 .5 .6"/>
+<geom type="plane" size="20 20 .1" pos="0 0 -.20" material="floor" contype="0" conaffinity="0"/>
+<body name="f0_forebody" pos="0 0 0">
+<joint name="f0_x" type="slide" axis="1 0 0"/>
+<joint name="f0_y" type="slide" axis="0 1 0"/>
+<joint name="f0_yaw" type="hinge" axis="0 0 1"/>
+<inertial pos="0 0 0" mass="0.45" diaginertia="0.00031041 0.00074916 0.00077157"/>
+<geom name="f0_forebody_visual" type="mesh" mesh="forebody" mass="0" contype="0" conaffinity="0" group="1" rgba="0.70 0.77 0.80 1"/>
+<geom name="f0_forebody_fluid" type="ellipsoid" pos="0 0 0" size="0.082 0.043 0.04" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f0_forebody_contact" type="ellipsoid" pos="0 0 0" size="0.082 0.043 0.04" group="3" rgba="0 0 0 0"/>
+<body name="f0_peduncle" pos="-0.0819961815 0.000166586471 0">
+<joint name="f0_j1" type="hinge" axis="0 0 1" range="-0.4363323129985824 0.4363323129985824" damping=".004" armature=".00002"/>
+<inertial pos="-0.045 0 0" mass="0.07" diaginertia="1.3804e-05 3.71e-05 3.3404e-05"/>
+<geom name="f0_peduncle_visual" type="mesh" mesh="peduncle" mass="0" contype="0" conaffinity="0" group="1" rgba="0.76 0.59 0.31 1"/>
+<geom name="f0_peduncle_fluid" type="ellipsoid" pos="-0.045 0 0" size="0.045 0.019 0.025" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f0_peduncle_contact" type="ellipsoid" pos="-0.045 0 0" size="0.045 0.019 0.025" group="3" rgba="0 0 0 0"/>
+<body name="f0_caudal" pos="-0.09 0 0">
+<joint name="f0_j2" type="hinge" axis="0 0 1" range="-0.6108652381980153 0.6108652381980153" damping=".004" armature=".00002"/>
+<inertial pos="-0.057 0 0" mass="0.035" diaginertia="2.3723e-05 4.6291e-05 2.2918e-05"/>
+<geom name="f0_caudal_visual" type="mesh" mesh="caudal" mass="0" contype="0" conaffinity="0" group="1" rgba="0.12 0.57 0.61 1"/>
+<geom name="f0_caudal_fluid" type="ellipsoid" pos="-0.057 0 0" size="0.057 0.005 0.058" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f0_caudal_contact" type="ellipsoid" pos="-0.057 0 0" size="0.057 0.005 0.058" group="3" rgba="0 0 0 0"/>
+</body></body></body>
+<body name="f1_forebody" pos="0 0 0">
+<joint name="f1_x" type="slide" axis="1 0 0"/>
+<joint name="f1_y" type="slide" axis="0 1 0"/>
+<joint name="f1_yaw" type="hinge" axis="0 0 1"/>
+<inertial pos="0 0 0" mass="0.45" diaginertia="0.00031041 0.00074916 0.00077157"/>
+<geom name="f1_forebody_visual" type="mesh" mesh="forebody" mass="0" contype="0" conaffinity="0" group="1" rgba="0.70 0.77 0.80 1"/>
+<geom name="f1_forebody_fluid" type="ellipsoid" pos="0 0 0" size="0.082 0.043 0.04" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f1_forebody_contact" type="ellipsoid" pos="0 0 0" size="0.082 0.043 0.04" group="3" rgba="0 0 0 0"/>
+<body name="f1_peduncle" pos="-0.0819961815 0.000166586471 0">
+<joint name="f1_j1" type="hinge" axis="0 0 1" range="-0.4363323129985824 0.4363323129985824" damping=".004" armature=".00002"/>
+<inertial pos="-0.045 0 0" mass="0.07" diaginertia="1.3804e-05 3.71e-05 3.3404e-05"/>
+<geom name="f1_peduncle_visual" type="mesh" mesh="peduncle" mass="0" contype="0" conaffinity="0" group="1" rgba="0.76 0.59 0.31 1"/>
+<geom name="f1_peduncle_fluid" type="ellipsoid" pos="-0.045 0 0" size="0.045 0.019 0.025" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f1_peduncle_contact" type="ellipsoid" pos="-0.045 0 0" size="0.045 0.019 0.025" group="3" rgba="0 0 0 0"/>
+<body name="f1_caudal" pos="-0.09 0 0">
+<joint name="f1_j2" type="hinge" axis="0 0 1" range="-0.6108652381980153 0.6108652381980153" damping=".004" armature=".00002"/>
+<inertial pos="-0.057 0 0" mass="0.035" diaginertia="2.3723e-05 4.6291e-05 2.2918e-05"/>
+<geom name="f1_caudal_visual" type="mesh" mesh="caudal" mass="0" contype="0" conaffinity="0" group="1" rgba="0.12 0.57 0.61 1"/>
+<geom name="f1_caudal_fluid" type="ellipsoid" pos="-0.057 0 0" size="0.057 0.005 0.058" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f1_caudal_contact" type="ellipsoid" pos="-0.057 0 0" size="0.057 0.005 0.058" group="3" rgba="0 0 0 0"/>
+</body></body></body>
+<body name="f2_forebody" pos="0 0 0">
+<joint name="f2_x" type="slide" axis="1 0 0"/>
+<joint name="f2_y" type="slide" axis="0 1 0"/>
+<joint name="f2_yaw" type="hinge" axis="0 0 1"/>
+<inertial pos="0 0 0" mass="0.45" diaginertia="0.00031041 0.00074916 0.00077157"/>
+<geom name="f2_forebody_visual" type="mesh" mesh="forebody" mass="0" contype="0" conaffinity="0" group="1" rgba="0.70 0.77 0.80 1"/>
+<geom name="f2_forebody_fluid" type="ellipsoid" pos="0 0 0" size="0.082 0.043 0.04" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f2_forebody_contact" type="ellipsoid" pos="0 0 0" size="0.082 0.043 0.04" group="3" rgba="0 0 0 0"/>
+<body name="f2_peduncle" pos="-0.0819961815 0.000166586471 0">
+<joint name="f2_j1" type="hinge" axis="0 0 1" range="-0.4363323129985824 0.4363323129985824" damping=".004" armature=".00002"/>
+<inertial pos="-0.045 0 0" mass="0.07" diaginertia="1.3804e-05 3.71e-05 3.3404e-05"/>
+<geom name="f2_peduncle_visual" type="mesh" mesh="peduncle" mass="0" contype="0" conaffinity="0" group="1" rgba="0.76 0.59 0.31 1"/>
+<geom name="f2_peduncle_fluid" type="ellipsoid" pos="-0.045 0 0" size="0.045 0.019 0.025" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f2_peduncle_contact" type="ellipsoid" pos="-0.045 0 0" size="0.045 0.019 0.025" group="3" rgba="0 0 0 0"/>
+<body name="f2_caudal" pos="-0.09 0 0">
+<joint name="f2_j2" type="hinge" axis="0 0 1" range="-0.6108652381980153 0.6108652381980153" damping=".004" armature=".00002"/>
+<inertial pos="-0.057 0 0" mass="0.035" diaginertia="2.3723e-05 4.6291e-05 2.2918e-05"/>
+<geom name="f2_caudal_visual" type="mesh" mesh="caudal" mass="0" contype="0" conaffinity="0" group="1" rgba="0.12 0.57 0.61 1"/>
+<geom name="f2_caudal_fluid" type="ellipsoid" pos="-0.057 0 0" size="0.057 0.005 0.058" mass="0" fluidshape="ellipsoid" fluidcoef=".5 .25 1.5 1 .2" group="3" rgba="0 0 0 0" contype="1" conaffinity="1" friction=".1 .001 .001"/>
+<site name="f2_caudal_contact" type="ellipsoid" pos="-0.057 0 0" size="0.057 0.005 0.058" group="3" rgba="0 0 0 0"/>
+</body></body></body>
+</worldbody><contact>
+<exclude body1="f0_forebody" body2="f0_caudal"/>
+<exclude body1="f1_forebody" body2="f1_caudal"/>
+<exclude body1="f2_forebody" body2="f2_caudal"/>
+</contact><actuator>
+<position name="f0_servo1" joint="f0_j1" kp="2.5" kv=".06" ctrllimited="true" ctrlrange="-0.4363323129985824 0.4363323129985824" forcelimited="true" forcerange="-.45 .45"/>
+<position name="f0_servo2" joint="f0_j2" kp="2.5" kv=".06" ctrllimited="true" ctrlrange="-0.6108652381980153 0.6108652381980153" forcelimited="true" forcerange="-.45 .45"/>
+<position name="f1_servo1" joint="f1_j1" kp="2.5" kv=".06" ctrllimited="true" ctrlrange="-0.4363323129985824 0.4363323129985824" forcelimited="true" forcerange="-.45 .45"/>
+<position name="f1_servo2" joint="f1_j2" kp="2.5" kv=".06" ctrllimited="true" ctrlrange="-0.6108652381980153 0.6108652381980153" forcelimited="true" forcerange="-.45 .45"/>
+<position name="f2_servo1" joint="f2_j1" kp="2.5" kv=".06" ctrllimited="true" ctrlrange="-0.4363323129985824 0.4363323129985824" forcelimited="true" forcerange="-.45 .45"/>
+<position name="f2_servo2" joint="f2_j2" kp="2.5" kv=".06" ctrllimited="true" ctrlrange="-0.6108652381980153 0.6108652381980153" forcelimited="true" forcerange="-.45 .45"/>
+</actuator><sensor>
+<actuatorfrc name="f0_torque1" actuator="f0_servo1"/>
+<actuatorfrc name="f0_torque2" actuator="f0_servo2"/>
+<actuatorfrc name="f1_torque1" actuator="f1_servo1"/>
+<actuatorfrc name="f1_torque2" actuator="f1_servo2"/>
+<actuatorfrc name="f2_torque1" actuator="f2_servo1"/>
+<actuatorfrc name="f2_torque2" actuator="f2_servo2"/>
+<touch name="f0_forebody_touch" site="f0_forebody_contact"/>
+<touch name="f0_peduncle_touch" site="f0_peduncle_contact"/>
+<touch name="f0_caudal_touch" site="f0_caudal_contact"/>
+<touch name="f1_forebody_touch" site="f1_forebody_contact"/>
+<touch name="f1_peduncle_touch" site="f1_peduncle_contact"/>
+<touch name="f1_caudal_touch" site="f1_caudal_contact"/>
+<touch name="f2_forebody_touch" site="f2_forebody_contact"/>
+<touch name="f2_peduncle_touch" site="f2_peduncle_contact"/>
+<touch name="f2_caudal_touch" site="f2_caudal_contact"/>
+</sensor></mujoco>
