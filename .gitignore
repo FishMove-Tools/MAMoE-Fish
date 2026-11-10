@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv*/
+outputs/
+model/runs/
+model/development/initialization/
+.env
+*.log
+
+**/recomputed_window_statistics.csv
+
+**/recomputed_window_statistics.csv

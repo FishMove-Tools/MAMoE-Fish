@@ -1,0 +1,5 @@
+numpy==1.26.4
+torch==2.6.0
+mujoco==3.3.7
+matplotlib==3.10.0
+Pillow==11.1.0
