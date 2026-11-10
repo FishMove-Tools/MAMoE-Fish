@@ -1,0 +1,175 @@
+{
+  "version": "gate_transfer_v19_cruise_speed_repertoire",
+  "stage": "source repertoire development",
+  "source_task": "cruise",
+  "target_branches": [
+    "cruise_to_escape",
+    "cruise_to_speed"
+  ],
+  "source_data": "180 source cruise episodes across low/mid/high constant-speed regimes, with near-steady initial states for the high-speed regime; identical source data for all methods, no target teacher data.",
+  "source_scene_range": [
+    100000,
+    100179
+  ],
+  "development_scenes": [
+    860000,
+    860004
+  ],
+  "formal_scenes_reserved": [
+    2026101900,
+    2026101939
+  ],
+  "pilot_training_seeds": [
+    7101,
+    7102
+  ],
+  "formal_training_seeds": [
+    8101,
+    8102,
+    8103,
+    8104,
+    8105
+  ],
+  "source_budget": {
+    "updates": 250,
+    "team_steps": 48000,
+    "warm_start_steps": 2000,
+    "examples_per_warm_step": 512,
+    "shared_teacher_environment_steps": 21375
+  },
+  "target_budget": {
+    "updates": 250,
+    "team_steps": 48000,
+    "target_teacher_steps": 0
+  },
+  "evaluation_every_updates": 25,
+  "stage1_pilot_source_updates": 100,
+  "stage1_pilot_target_updates": 100,
+  "physics": "unchanged dual-joint v2 planar model; 0.5 s primitives/decisions, 0.0005 s integration",
+  "policy": "parameter-shared decentralized actor; centralized critic; fixed task for every run",
+  "expert_inputs": "25 local tracking-error, velocity, joint, previous-action, identity and neighbor features; heading command, target velocity, threat and task code only enter gate",
+  "gate_inputs": "all 35 existing deployment-allowed features",
+  "mlp_inputs": "same 35 features as the complete MoE actor",
+  "normalization": "fixed analytic scales, no running normalization statistics",
+  "routing": "weighted probability mixture is primary for both training and execution; Single-expert routing is a separate diagnostic",
+  "adaptation": "freeze expert tensors; train gate actor and a reset critic; report both parameter budgets",
+  "baselines": [
+    "frozen source MoE",
+    "MoE gate-only",
+    "MoE full fine-tuning",
+    "matched MLP full fine-tuning",
+    "MLP frozen backbone plus residual adapter",
+    "MLP target from scratch"
+  ],
+  "expert_counts": [
+    2,
+    3,
+    4,
+    6
+  ],
+  "expert_count_control": "match total actor capacity as closely as discrete widths permit; separately report per-expert capacity and gate trainable count",
+  "task_success": "unchanged environment summary including safety and failure penalties",
+  "development_efficiency_thresholds": {
+    "escape": {
+      "pass_rate": 0.9,
+      "mean_primary_max": 45.0
+    },
+    "speed": {
+      "pass_rate": 0.9,
+      "mean_primary_max": 0.006
+    },
+    "require_consecutive_evaluations": 2
+  },
+  "formal_acceptance": {
+    "pass_rate_per_task_min": 0.9,
+    "primary_noninferiority_relative_margin": 0.1,
+    "safety": "no observed increase; report uncertainty and counts",
+    "efficiency": "Target actor+critic optimization time at least 20% lower than full MLP adaptation in an isolated paired benchmark, with noninferior task performance. Also report end-to-end wall time, interactions, optimizer bytes and inference separately. Do not imply overall speedup from optimizer-only speedup. Compare small adapters honestly."
+  },
+  "statistics": "paired training seeds and scenes; seed-level estimates plus paired bootstrap intervals; five source seeds minimum; no omission of failures or threshold nonattainment",
+  "episode_return": "undiscounted sum of mean reward across three fish in a completed episode; include terminal failures; exclude incomplete tail fragments",
+  "plotting": "raw episode returns plus fixed trailing 10-episode mean, cross-seed sample SD; primary sample efficiency uses team steps",
+  "stop_policy": "iteration on development evidence only; no claim of success when gate-only transfer or comparative advantage is not supported",
+  "hypothesis": "A cruise-only expert bank can be reused by adapting a small target gate; superiority over small MLP adapters is not assumed.",
+  "initialization": "Source desired-speed quantiles (.95 regional responsibilities, .05/K smoothing); source-only teacher labels, with balanced low/mid/high constant-speed source cruises. Target gate output layer initialized to zero (uniform mixture); all other gate weights inherited.",
+  "ablation_required": [
+    "v12 full tracking commands at experts",
+    "v13 no position feedback at experts",
+    "v14 position feedback but no heading/speed commands at experts",
+    "same-capacity MLP",
+    "MLP adapter",
+    "same-size gate-only actor baseline"
+  ],
+  "source_curriculum": {
+    "regime_assignment": "episode_seed modulo 3",
+    "low_speed_mps": [
+      0.014,
+      0.022
+    ],
+    "medium_speed_mps": [
+      0.025,
+      0.034
+    ],
+    "high_speed_mps": [
+      0.039,
+      0.041
+    ],
+    "low_medium_curvature_per_m": [
+      -0.6,
+      0.6
+    ],
+    "high_curvature_per_m": [
+      -0.08,
+      0.08
+    ],
+    "slot_speed_cap_low_medium_mps": 0.038,
+    "slot_speed_cap_high_mps": 0.041,
+    "initial_heading_low_medium_rad": [
+      -1.2,
+      1.2
+    ],
+    "initial_heading_high_rad": [
+      -0.12,
+      0.12
+    ],
+    "initial_position_error_high_m": [
+      -0.02,
+      0.02
+    ],
+    "initial_speed_high_fraction": [
+      0.9,
+      1.0
+    ],
+    "within_episode_task_switch": false,
+    "within_episode_speed_steps": false,
+    "threat": false
+  },
+  "development_confirmation_scenes": [
+    860010,
+    860029
+  ],
+  "source_validation": "Original nominal cruise evaluation unchanged; source training contains broader task-0 conditions.",
+  "baseline_addition": "feedback_mlp with the same expert input restriction, to separate information-structure effects from mixture effects",
+  "rationale": "v14 target gate training changes performance only slightly; source data was dominated by near-aligned intermittent cruising. Broaden source task capabilities before freezing, not target data access.",
+  "confirmation_scenes": [
+    860010,
+    860029
+  ],
+  "old_test_collision": "960000..960019 were already evaluated in the old joint-training study. No scenes from 960000..960039 will be treated as fresh final tests.",
+  "actor_contract": "frozen_bank_feedback25_v17",
+  "target_lr": 0.001,
+  "source_lr": 3e-05,
+  "target_optimizer": "Adam; critic reset to seed-matched initialization; critic trained for every method",
+  "temporal_branch": "T1->T2 and T1->T3 independently; no T2 data in T3 initialization",
+  "source_reuse": "One source expert bank and three separately stored gates (source, escape, speed). Source gate retained without modification.",
+  "primary_experts": 3,
+  "extra_controls": [
+    "feedback MLP with same expert input mask",
+    "feedback MLP plus 1235-parameter adapter",
+    "source-only uniform gate before target learning"
+  ],
+  "timing": "Concurrent training wall times are resource-confounded. Cache frozen expert outputs once per PPO batch; identically cache frozen MLP backbone logits for adapters. Bitwise-equal probabilities and trainable gradients verified. Log rollout and optimizer times, then benchmark isolated actor+critic update and inference on the same batches in balanced randomized order.",
+  "final_update_policy": "Independent final tests are opened only after all models, protocol, development selection and benchmark scripts are frozen.",
+  "checkpoint_rule": "Identical validation rule for all methods: successes first, then fixed primary metric; warm-start update 0 is eligible. Report selected update explicitly, including selection of 0.",
+  "written_utc": "2026-10-19T06:15:21.446125+00:00"
+}
