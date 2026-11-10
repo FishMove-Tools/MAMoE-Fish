@@ -4,11 +4,11 @@
 
 **Shared feedback experts · Task-specific gating · Articulated robotic fish**
 
-[Project website](https://Sunweiyuan01.github.io/MAMoE-Fish/) · [Quick start](#quick-start) · [Method](guide/METHOD.md) · [Training](guide/TRAINING.md) · [Data](data/README.md)
+[Project website](https://Sunweiyuan01.github.io/MAMoE-Fish/) · [Quick start](#quick-start) · [Method](guide/METHOD.md) · [Training](guide/TRAINING.md)
 
 ![MAMoE-Fish feedback policy and articulated platform](docs/assets/framework.png)
 
-MAMoE-Fish combines a bank of feedback policies with task-specific gates. Each expert produces a probability distribution over five complete swimming primitives. A gate mixes those distributions using the current observation, and the selected primitive drives the two joints for one complete cycle. The repository provides the control core, articulated MuJoCo models, representative actor checkpoints, training entry points and selected scalar data.
+MAMoE-Fish combines a bank of feedback policies with task-specific gates. Each expert produces a probability distribution over five complete swimming primitives. A gate mixes those distributions using the current observation, and the selected primitive drives the two joints for one complete cycle. The repository provides the control core, articulated MuJoCo models, representative actor checkpoints, training entry points. Evaluation and CFD datasets are being organized and are not included in this release.
 
 ## How it works
 
@@ -46,11 +46,9 @@ The demo uses a released actor and saves time, planar states, discrete actions, 
 | Directory | Contents |
 |---|---|
 | `code/` | Actor, critic, primitives, environment, initialization and PPO training |
-| `model/` | Three-fish and isolated-fish XML, visual meshes, source teacher dataset |
+| `model/` | Three-fish and isolated-fish XML, visual meshes |
 | `checkpoints/` | Three representative seed-8101 actor-only checkpoints |
-| `data/mujoco/` | Selected complete cruise/speed episode tables and dictionary |
-| `data/cfd/` | Isolated, three-fish and increased-spacing scalar records |
-| `tools/` | Rollout, plotting, data inspection and checksum utilities |
+| `tools/` | Rollout, plotting and checksum utilities |
 | `guide/` | Method, training, data/version details and verification |
 | `docs/` | Static GitHub Pages website |
 
@@ -64,7 +62,7 @@ The historical `FAMoEController` class name is retained for compatibility. It ex
 
 The model uses 0.0005 s physics integration and 0.5 s decisions. The base environment retains the original 3 mm/s pursuit setting; the provided escape actor uses the separate 25 mm/s environment selected automatically by the demo. See [versions and scope](guide/VERSIONS.md).
 
-The training commands and configuration are described in [TRAINING.md](guide/TRAINING.md). [VERIFICATION.md](guide/VERIFICATION.md) records checks actually performed for this release. Data values are preserved; local machine paths and unnecessary checkpoint metadata are excluded from the publication package.
+The training commands and configuration are described in [TRAINING.md](guide/TRAINING.md). [VERIFICATION.md](guide/VERIFICATION.md) records checks actually performed for this release. Evaluation datasets and the source teacher archive are withheld pending organization. Local machine paths and unnecessary checkpoint metadata are excluded from the publication package.
 
 ## Citation and rights
 
