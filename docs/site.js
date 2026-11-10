@@ -1,0 +1,1 @@
+document.querySelector('#copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.querySelector('#commands').textContent);document.querySelector('#copy-status').textContent='Commands copied.';}catch{document.querySelector('#copy-status').textContent='Select and copy the commands above.';}});
